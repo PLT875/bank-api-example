@@ -17,11 +17,11 @@ public class DateTimeUtilTest {
         ZonedDateTime startOfWeek = DateTimeUtil.getStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(1, startOfWeek.getDayOfWeek().getValue());
-        
         assertEquals(0, startOfWeek.getHour());
         assertEquals(0, startOfWeek.getMinute());
         assertEquals(0, startOfWeek.getSecond());
         assertEquals(0, startOfWeek.getNano());
+        assertEquals("2021-03-08T00:00Z", startOfWeek.toString());
     }
 
     @Test
@@ -35,6 +35,7 @@ public class DateTimeUtilTest {
         assertEquals(0, startOfWeek.getMinute());
         assertEquals(0, startOfWeek.getSecond());
         assertEquals(0, startOfWeek.getNano());
+        assertEquals("2021-03-08T00:00Z", startOfWeek.toString());
     }
 
     @Test
@@ -48,6 +49,7 @@ public class DateTimeUtilTest {
         assertEquals(59, endOfWeek.getMinute());
         assertEquals(59, endOfWeek.getSecond());
         assertEquals(999_999_999, endOfWeek.getNano());
+        assertEquals("2021-03-14T23:59:59.999999999Z", endOfWeek.toString());
     }
 
     @Test
@@ -61,5 +63,6 @@ public class DateTimeUtilTest {
         assertEquals(59, endOfWeek.getMinute());
         assertEquals(59, endOfWeek.getSecond());
         assertEquals(999_999_999, endOfWeek.getNano());
+        assertEquals("2021-03-14T23:59:59.999999999Z", endOfWeek.toString());
     }
 }

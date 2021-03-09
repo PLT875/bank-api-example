@@ -7,3 +7,6 @@ build
 .idea
 app/src/main/main.iml
 app/src/test/test.iml
+
+.DS_Store
+app/.DS_Store
