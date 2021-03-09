@@ -17,6 +17,7 @@ public class DateTimeUtilTest {
         ZonedDateTime startOfWeek = DateTimeUtil.getStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(1, startOfWeek.getDayOfWeek().getValue());
+        
         assertEquals(0, startOfWeek.getHour());
         assertEquals(0, startOfWeek.getMinute());
         assertEquals(0, startOfWeek.getSecond());
