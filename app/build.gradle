@@ -29,7 +29,10 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.18'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
 
-
+    // feign
+    implementation 'io.github.openfeign:feign-core:10.12'
+    implementation 'io.github.openfeign:feign-jackson:10.12'
+    implementation 'io.github.openfeign:feign-slf4j:10.12'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
