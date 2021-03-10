@@ -1,6 +1,6 @@
 package com.starling.domain.util;
 
-import com.starling.domain.response.TransactionFeedItem;
+import com.starling.infrastructure.starlingapi.TransactionFeedItem;
 
 import java.time.DayOfWeek;
 import java.time.ZonedDateTime;
@@ -31,7 +31,7 @@ public final class TransactionFeedUtil {
         return (((amount / 100) * 100) + 100) - amount;
     }
 
-    public static ZonedDateTime getStartOfWeek(ZonedDateTime now) {
+    public static ZonedDateTime calculateStartOfWeek(ZonedDateTime now) {
         ZonedDateTime start = now
                 .minusNanos(now.getNano())
                 .minusHours(now.getHour())
@@ -45,7 +45,7 @@ public final class TransactionFeedUtil {
         return start;
     }
 
-    public static ZonedDateTime getEndOfWeek(ZonedDateTime now) {
+    public static ZonedDateTime calculateEndOfWeek(ZonedDateTime now) {
         ZonedDateTime end = now
                 .plusNanos(MAX_NANOSECOND - now.getNano())
                 .plusHours(23 - now.getHour())

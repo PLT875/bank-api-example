@@ -1,7 +1,7 @@
 package com.starling.domain.util;
 
-import com.starling.domain.response.FeedItem;
-import com.starling.domain.response.TransactionFeedItem;
+import com.starling.infrastructure.starlingapi.FeedItem;
+import com.starling.infrastructure.starlingapi.TransactionFeedItem;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void calculateTotalRoundUpSavingsWhenNoOutPayments() {
+    public void calculateTotalRoundUpSavingsWhenNoPayments() {
         FeedItem feedItem0 = new FeedItem("IN", new FeedItem.Amount("GB", Integer.valueOf(50)));
         List<FeedItem> feedItems = Arrays.asList(feedItem0);
 
@@ -43,10 +43,10 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void getStartOfWeekWhenMonday() {
+    public void calculateStartOfWeekWhenMonday() {
         // Mon 8th
         LocalDateTime local = LocalDateTime.of(2021, 3, 8, 21, 33, 47, 223);
-        ZonedDateTime startOfWeek = TransactionFeedUtil.getStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
+        ZonedDateTime startOfWeek = TransactionFeedUtil.calculateStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(1, startOfWeek.getDayOfWeek().getValue());
         assertEquals(0, startOfWeek.getHour());
@@ -57,10 +57,10 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void getStartOfWeekWhenNotMonday() {
+    public void calculateStartOfWeekWhenNotMonday() {
         // Wed 10th
         LocalDateTime local = LocalDateTime.of(2021, 3, 10, 21, 33, 47, 223);
-        ZonedDateTime startOfWeek = TransactionFeedUtil.getStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
+        ZonedDateTime startOfWeek = TransactionFeedUtil.calculateStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(1, startOfWeek.getDayOfWeek().getValue());
         assertEquals(0, startOfWeek.getHour());
@@ -71,10 +71,10 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void getEndOfWeekWhenSunday() {
+    public void calculateEndOfWeekWhenSunday() {
         // Sun 14th
         LocalDateTime local = LocalDateTime.of(2021, 3, 14, 21, 33, 47, 223);
-        ZonedDateTime endOfWeek = TransactionFeedUtil.getEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
+        ZonedDateTime endOfWeek = TransactionFeedUtil.calculateEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(7, endOfWeek.getDayOfWeek().getValue());
         assertEquals(23, endOfWeek.getHour());
@@ -85,10 +85,10 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void getEndOfWeekWhenNotSunday() {
+    public void calculateEndOfWeekWhenNotSunday() {
         // Wed 10th
         LocalDateTime local = LocalDateTime.of(2021, 3, 10, 21, 33, 47, 223);
-        ZonedDateTime endOfWeek = TransactionFeedUtil.getEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
+        ZonedDateTime endOfWeek = TransactionFeedUtil.calculateEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
 
         assertEquals(7, endOfWeek.getDayOfWeek().getValue());
         assertEquals(23, endOfWeek.getHour());

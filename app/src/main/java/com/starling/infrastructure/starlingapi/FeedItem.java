@@ -1,4 +1,4 @@
-package com.starling.domain.response;
+package com.starling.infrastructure.starlingapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
