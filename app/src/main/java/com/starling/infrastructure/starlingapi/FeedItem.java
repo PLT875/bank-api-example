@@ -3,8 +3,10 @@ package com.starling.infrastructure.starlingapi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class FeedItem {
 
@@ -15,6 +17,7 @@ public class FeedItem {
     private FeedItem.Amount amount;
 
     @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class Amount {
         @JsonProperty("currency")
