@@ -4,8 +4,6 @@ import com.starling.infrastructure.starlingapi.FeedItem;
 import com.starling.infrastructure.starlingapi.TransactionFeedItem;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,58 +41,14 @@ public class TransactionFeedUtilTest {
     }
 
     @Test
-    public void calculateStartOfWeekWhenMonday() {
-        // Mon 8th
-        LocalDateTime local = LocalDateTime.of(2021, 3, 8, 21, 33, 47, 223);
-        ZonedDateTime startOfWeek = TransactionFeedUtil.calculateStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
+    public void calculateStartAndEndOfWeek() {
+        ZonedDateTime dt0 = TransactionFeedUtil.calculateStartOfWeek(2020, 53);
+        assertEquals("2020-12-28T00:00Z", dt0.toString());
+        assertEquals("2021-01-03T23:59:59.999999999Z", TransactionFeedUtil.calculateEndOfWeek(dt0));
 
-        assertEquals(1, startOfWeek.getDayOfWeek().getValue());
-        assertEquals(0, startOfWeek.getHour());
-        assertEquals(0, startOfWeek.getMinute());
-        assertEquals(0, startOfWeek.getSecond());
-        assertEquals(0, startOfWeek.getNano());
-        assertEquals("2021-03-08T00:00Z", startOfWeek.toString());
+        ZonedDateTime dt1 = TransactionFeedUtil.calculateStartOfWeek(2021, 10);
+        assertEquals("2021-03-08T00:00Z", dt1.toString());
+        assertEquals("2021-03-14T23:59:59.999999999Z", TransactionFeedUtil.calculateEndOfWeek(dt1));
     }
 
-    @Test
-    public void calculateStartOfWeekWhenNotMonday() {
-        // Wed 10th
-        LocalDateTime local = LocalDateTime.of(2021, 3, 10, 21, 33, 47, 223);
-        ZonedDateTime startOfWeek = TransactionFeedUtil.calculateStartOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
-
-        assertEquals(1, startOfWeek.getDayOfWeek().getValue());
-        assertEquals(0, startOfWeek.getHour());
-        assertEquals(0, startOfWeek.getMinute());
-        assertEquals(0, startOfWeek.getSecond());
-        assertEquals(0, startOfWeek.getNano());
-        assertEquals("2021-03-08T00:00Z", startOfWeek.toString());
-    }
-
-    @Test
-    public void calculateEndOfWeekWhenSunday() {
-        // Sun 14th
-        LocalDateTime local = LocalDateTime.of(2021, 3, 14, 21, 33, 47, 223);
-        ZonedDateTime endOfWeek = TransactionFeedUtil.calculateEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
-
-        assertEquals(7, endOfWeek.getDayOfWeek().getValue());
-        assertEquals(23, endOfWeek.getHour());
-        assertEquals(59, endOfWeek.getMinute());
-        assertEquals(59, endOfWeek.getSecond());
-        assertEquals(999_999_999, endOfWeek.getNano());
-        assertEquals("2021-03-14T23:59:59.999999999Z", endOfWeek.toString());
-    }
-
-    @Test
-    public void calculateEndOfWeekWhenNotSunday() {
-        // Wed 10th
-        LocalDateTime local = LocalDateTime.of(2021, 3, 10, 21, 33, 47, 223);
-        ZonedDateTime endOfWeek = TransactionFeedUtil.calculateEndOfWeek(ZonedDateTime.of(local, ZoneOffset.UTC));
-
-        assertEquals(7, endOfWeek.getDayOfWeek().getValue());
-        assertEquals(23, endOfWeek.getHour());
-        assertEquals(59, endOfWeek.getMinute());
-        assertEquals(59, endOfWeek.getSecond());
-        assertEquals(999_999_999, endOfWeek.getNano());
-        assertEquals("2021-03-14T23:59:59.999999999Z", endOfWeek.toString());
-    }
 }

@@ -2,14 +2,14 @@ package com.starling.domain.util;
 
 import com.starling.infrastructure.starlingapi.TransactionFeedItem;
 
-import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.Calendar;
 
 public final class TransactionFeedUtil {
 
     public static final String FEED_ITEM_OUT = "OUT";
-
-    private static final long MAX_NANOSECOND = 999_999_999;
 
     private TransactionFeedUtil() {
     }
@@ -31,31 +31,25 @@ public final class TransactionFeedUtil {
         return (((amount / 100) * 100) + 100) - amount;
     }
 
-    public static ZonedDateTime calculateStartOfWeek(ZonedDateTime now) {
-        ZonedDateTime start = now
-                .minusNanos(now.getNano())
-                .minusHours(now.getHour())
-                .minusMinutes(now.getMinute())
-                .minusSeconds(now.getSecond());
+    public static ZonedDateTime calculateStartOfWeek(int year, int week) {
+        Calendar cal = Calendar.getInstance();
 
-        if (!DayOfWeek.MONDAY.equals(start.getDayOfWeek())) {
-            return start.minusDays(start.getDayOfWeek().getValue() - 1);
-        }
+        // n.b. Sun is 1 in gregorian calendar
+        cal.setWeekDate(year, week, 2);
 
-        return start;
+        LocalDateTime start = LocalDateTime.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+                cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
+
+        return ZonedDateTime.of(start, ZoneOffset.UTC);
     }
 
-    public static ZonedDateTime calculateEndOfWeek(ZonedDateTime now) {
-        ZonedDateTime end = now
-                .plusNanos(MAX_NANOSECOND - now.getNano())
-                .plusHours(23 - now.getHour())
-                .plusMinutes(59 - now.getMinute())
-                .plusSeconds(59 - now.getSecond());
-
-        if (!DayOfWeek.SUNDAY.equals(end.getDayOfWeek())) {
-            return end.plusDays(7 - end.getDayOfWeek().getValue());
-        }
-
-        return end;
+    public static String calculateEndOfWeek(ZonedDateTime dateTime) {
+        return dateTime
+                .plusDays(6)
+                .plusHours(23)
+                .plusMinutes(59)
+                .plusSeconds(59)
+                .plusNanos(999_999_999)
+                .toString();
     }
 }
