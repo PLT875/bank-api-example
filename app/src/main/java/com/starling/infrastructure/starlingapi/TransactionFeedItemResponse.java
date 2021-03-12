@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionFeedItem {
+public class TransactionFeedItemResponse {
 
     @JsonProperty("feedItems")
     private List<FeedItem> feedItems;

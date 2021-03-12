@@ -1,21 +1,21 @@
 package com.starling.domain.util;
 
-import com.starling.infrastructure.starlingapi.TransactionFeedItem;
+import com.starling.infrastructure.starlingapi.TransactionFeedItemResponse;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 
-public final class TransactionFeedUtil {
+public final class SavingsGoalUtil {
 
     public static final String FEED_ITEM_OUT = "OUT";
 
-    private TransactionFeedUtil() {
+    private SavingsGoalUtil() {
     }
 
-    public static Integer calculateTotalRoundUpSavings(TransactionFeedItem transactionFeedItem) {
-        return transactionFeedItem
+    public static Integer calculateTotalRoundUpSavings(TransactionFeedItemResponse transactionFeedItemResponse) {
+        return transactionFeedItemResponse
                 .getFeedItems()
                 .stream()
                 .filter(f -> FEED_ITEM_OUT.equals(f.getDirection()))

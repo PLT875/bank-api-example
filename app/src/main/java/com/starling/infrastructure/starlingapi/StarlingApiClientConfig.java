@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 public class StarlingApiClientConfig {
 
+    /**
+     * The request interceptor forwards the authorization header to the Starling API Feign client
+     */
     public RequestInterceptor requestInterceptor() {
         return new RequestInterceptor() {
             @Override

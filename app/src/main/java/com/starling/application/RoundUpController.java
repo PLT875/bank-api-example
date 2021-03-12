@@ -1,38 +1,30 @@
 package com.starling.application;
 
-import com.starling.domain.services.TransactionFeedService;
-import com.starling.infrastructure.starlingapi.TransactionFeedItem;
+import com.starling.domain.services.SavingsGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.ZonedDateTime;
-
-import static com.starling.domain.util.TransactionFeedUtil.calculateEndOfWeek;
-import static com.starling.domain.util.TransactionFeedUtil.calculateStartOfWeek;
 
 @RestController
 public class RoundUpController {
 
-    private TransactionFeedService transactionFeedService;
+    private SavingsGoalService savingsGoalService;
 
     @Autowired
-    public RoundUpController(TransactionFeedService transactionFeedService) {
-        this.transactionFeedService = transactionFeedService;
+    public RoundUpController(SavingsGoalService savingsGoalService) {
+        this.savingsGoalService = savingsGoalService;
     }
 
-    @RequestMapping("/round-up")
-    public String index() {
-        String accountUid = "85ab5c9c-a380-4fd4-a7dc-847bbdb7bcd7";
-        String categoryUid = "29854949-15df-475e-8785-b490dbaec2b2";
-        ZonedDateTime startOfWeek = calculateStartOfWeek(2021, 10);
-        String endOfWeek = calculateEndOfWeek(startOfWeek);
+    @PutMapping("/savings-goal/{savingsGoalUid}/account/{accountUid}/add-round-ups")
+    public ResponseEntity<?> addRoundUpsForWeekToSavingsGoal(
+            @PathVariable String savingsGoalUid,
+            @PathVariable String accountUid
 
-        TransactionFeedItem item = transactionFeedService.retrieveTransactionFeedBetweenTimestamps(
-                accountUid, categoryUid, startOfWeek.toString(), endOfWeek);
-
-        System.out.println(item);
-        return "Greetings from Spring Boot!";
+    ) {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }
