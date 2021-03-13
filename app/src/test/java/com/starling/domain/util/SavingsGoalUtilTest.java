@@ -1,5 +1,6 @@
 package com.starling.domain.util;
 
+import com.starling.infrastructure.starlingapi.AccountsResponse;
 import com.starling.infrastructure.starlingapi.FeedItem;
 import com.starling.infrastructure.starlingapi.TransactionFeedItemResponse;
 import org.junit.jupiter.api.Test;
@@ -8,11 +9,25 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static com.starling.domain.util.SavingsGoalUtil.FEED_ITEM_OUT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SavingsGoalUtilTest {
+
+    @Test
+    public void retrievePrimaryAccount() {
+        AccountsResponse.Account acc0 = new AccountsResponse.Account("id0", "PRIMARY", "cat0", "GBP");
+        AccountsResponse.Account acc1 = new AccountsResponse.Account("id1", "SECONDARY", "cat1", "GBP");
+        AccountsResponse accountsResponse = new AccountsResponse(Arrays.asList(acc0, acc1));
+        Optional<AccountsResponse.Account> account = SavingsGoalUtil.retrievePrimaryAccount(accountsResponse);
+
+        assertTrue(account.isPresent());
+        assertEquals("id0", account.get().getAccountUid());
+        assertEquals("PRIMARY", account.get().getAccountType());
+    }
 
     @Test
     public void calculateTotalRoundUpSavings() {

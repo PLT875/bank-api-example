@@ -1,15 +1,19 @@
 package com.starling.domain.util;
 
+import com.starling.infrastructure.starlingapi.AccountsResponse;
 import com.starling.infrastructure.starlingapi.TransactionFeedItemResponse;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Optional;
 
 public final class SavingsGoalUtil {
 
     public static final String FEED_ITEM_OUT = "OUT";
+
+    public static final String PRIMARY = "PRIMARY";
 
     private SavingsGoalUtil() {
     }
@@ -21,6 +25,18 @@ public final class SavingsGoalUtil {
                 .filter(f -> FEED_ITEM_OUT.equals(f.getDirection()))
                 .map(f -> calculateSaving(f.getAmount().getMinorUnits()))
                 .reduce(0, Integer::sum);
+    }
+
+    /**
+     * @param accountsResponse
+     * @return primary account (assuming there is only one primary account)
+     */
+    public static Optional<AccountsResponse.Account> retrievePrimaryAccount(AccountsResponse accountsResponse) {
+        return accountsResponse
+                .getAccounts()
+                .stream()
+                .filter(a -> PRIMARY.equals(a.getAccountType()))
+                .findFirst();
     }
 
     /**
