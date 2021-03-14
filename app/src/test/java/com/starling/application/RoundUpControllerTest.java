@@ -44,13 +44,13 @@ public class RoundUpControllerTest {
                 .perform(put("/savings-goal/sgUid/add-round-ups/2021/3"))
                 .andExpect(status().isNoContent());
 
-        Mockito.verify(mockSavingsGoalService).addRoundUpToSavingsGoal("sgUid", 2021, 3);
+        Mockito.verify(mockSavingsGoalService).addRoundUpsToSavingsGoal("sgUid", 2021, 3);
     }
 
     @Test
     void addWeekRoundUpsToSavingsGoalShouldReturn403WhenApiClientForbidden() throws Exception {
         Forbidden mockForbidden = mock(Forbidden.class);
-        doThrow(mockForbidden).when(mockSavingsGoalService).addRoundUpToSavingsGoal("sgUid", 2021, 3);
+        doThrow(mockForbidden).when(mockSavingsGoalService).addRoundUpsToSavingsGoal("sgUid", 2021, 3);
         when(mockForbidden.getMessage()).thenReturn("Invalid access token");
 
         mockMvc
@@ -61,7 +61,7 @@ public class RoundUpControllerTest {
     @Test
     void addWeekRoundUpsToSavingsGoalShouldReturn500WhenApiClientInternalError() throws Exception {
         InternalServerError mockInternal = mock(InternalServerError.class);
-        doThrow(mockInternal).when(mockSavingsGoalService).addRoundUpToSavingsGoal("sgUid", 2021, 3);
+        doThrow(mockInternal).when(mockSavingsGoalService).addRoundUpsToSavingsGoal("sgUid", 2021, 3);
         when(mockInternal.getMessage()).thenReturn("Internal server error");
 
         mockMvc

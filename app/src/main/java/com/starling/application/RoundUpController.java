@@ -24,7 +24,7 @@ public class RoundUpController {
             @PathVariable int year,
             @PathVariable int weekNo
     ) throws Exception {
-        savingsGoalService.addRoundUpToSavingsGoal(savingsGoalUid, year, weekNo);
+        savingsGoalService.addRoundUpsToSavingsGoal(savingsGoalUid, year, weekNo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

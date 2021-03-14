@@ -2,6 +2,8 @@ package com.starling.domain.services;
 
 import com.starling.domain.util.SavingsGoalUtil;
 import com.starling.infrastructure.starlingapi.AccountsResponse;
+import com.starling.infrastructure.starlingapi.SavingsGoalTopUpRequest;
+import com.starling.infrastructure.starlingapi.SavingsGoalTopUpResponse;
 import com.starling.infrastructure.starlingapi.StarlingApiClient;
 import com.starling.infrastructure.starlingapi.TransactionFeedItemResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -31,7 +34,7 @@ public class SavingsGoalService {
      * @param year
      * @param weekNo
      */
-    public void addRoundUpToSavingsGoal(String savingsGoalUid, int year, int weekNo) {
+    public void addRoundUpsToSavingsGoal(String savingsGoalUid, int year, int weekNo) {
         AccountsResponse accountsResponse = starlingApiClient.getAccounts();
         Optional<AccountsResponse.Account> account = retrievePrimaryAccount(accountsResponse);
         if (!account.isPresent()) {
@@ -46,7 +49,18 @@ public class SavingsGoalService {
 
         Integer savings = SavingsGoalUtil.calculateTotalRoundUpSavings(feedItemResponse);
         if (savings > 0) {
-            log.info("Savings for week {} of year {}: {}", weekNo, year, savings);
+            log.info("Round up savings for week {} of year {}: {}", weekNo, year, savings);
+            String transferUid = UUID.randomUUID().toString();
+            SavingsGoalTopUpRequest request = SavingsGoalTopUpRequest
+                    .builder()
+                    .amount(new SavingsGoalTopUpRequest.Amount("GBP", savings))
+                    .build();
+
+            SavingsGoalTopUpResponse response = starlingApiClient.addMoneyToSavingsGoal(
+                    accountUid, savingsGoalUid, transferUid, request);
+
+            log.info("Adding to savings goal UID: {}. Success: {}. Transfer UID: {}", savingsGoalUid,
+                    response.isSuccess(), response.getTransferUid());
         } else {
             log.info("No savings for week {} of year {}", weekNo, year);
         }

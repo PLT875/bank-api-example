@@ -21,8 +21,8 @@ public interface StarlingApiClient {
             @QueryMap Map<String, String> timestampsMinMax);
 
     @RequestLine("PUT /api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/add-money/{transferUid}")
-    @Headers("Accept: application/json")
-    void addMoneyToSavingsGoal(
+    @Headers({ "Accept: application/json", "Content-Type: application/json"})
+    SavingsGoalTopUpResponse addMoneyToSavingsGoal(
             @Param("accountUid") String accountUid,
             @Param("savingsGoalUid") String savingsGoalUid,
             @Param("transferUid") String transferUid,
