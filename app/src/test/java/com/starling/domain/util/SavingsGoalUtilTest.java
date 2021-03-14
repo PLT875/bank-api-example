@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.starling.domain.util.SavingsGoalUtil.FEED_ITEM_OUT;
+import static com.starling.domain.util.SavingsGoalUtil.PAYMENTS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,21 +32,24 @@ public class SavingsGoalUtilTest {
 
     @Test
     void calculateTotalRoundUpSavings() {
-        FeedItem feedItem0 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(435)));
-        FeedItem feedItem1 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(520)));
-        FeedItem feedItem2 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(87)));
-        FeedItem feedItem3 = new FeedItem("IN", new FeedItem.Amount("GB", Integer.valueOf(50)));
-        FeedItem feedItem4 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(100)));
+        FeedItem feedItem0 = new FeedItem(FEED_ITEM_OUT, PAYMENTS, new FeedItem.Amount("GB", Integer.valueOf(435)));
+        FeedItem feedItem1 = new FeedItem(FEED_ITEM_OUT, PAYMENTS, new FeedItem.Amount("GB", Integer.valueOf(520)));
+        FeedItem feedItem2 = new FeedItem(FEED_ITEM_OUT, PAYMENTS, new FeedItem.Amount("GB", Integer.valueOf(87)));
+        FeedItem feedItem3 = new FeedItem("IN", "INCOME", new FeedItem.Amount("GB", Integer.valueOf(50)));
+        FeedItem feedItem4 = new FeedItem(FEED_ITEM_OUT, PAYMENTS, new FeedItem.Amount("GB", Integer.valueOf(100)));
+        FeedItem feedItem5 = new FeedItem(FEED_ITEM_OUT, "SAVINGS", new FeedItem.Amount("GB", Integer.valueOf(100)));
 
-        List<FeedItem> feedItems = Arrays.asList(feedItem0, feedItem1, feedItem2, feedItem3, feedItem4);
+        List<FeedItem> feedItems = Arrays.asList(feedItem0, feedItem1, feedItem2, feedItem3, feedItem4, feedItem5);
 
         TransactionFeedItemResponse item = new TransactionFeedItemResponse(feedItems);
+
+        // 65 (0) + 80 (1) + 13 (2) + 100 (4)
         assertEquals(258, SavingsGoalUtil.calculateTotalRoundUpSavings(item));
     }
 
     @Test
     void calculateTotalRoundUpSavingsWhenNoPayments() {
-        FeedItem feedItem0 = new FeedItem("IN", new FeedItem.Amount("GB", Integer.valueOf(50)));
+        FeedItem feedItem0 = new FeedItem("IN", "INCOME", new FeedItem.Amount("GB", Integer.valueOf(50)));
         List<FeedItem> feedItems = Arrays.asList(feedItem0);
 
         TransactionFeedItemResponse item = new TransactionFeedItemResponse(feedItems);

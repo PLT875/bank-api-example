@@ -13,6 +13,9 @@ public class FeedItem {
     @JsonProperty("direction")
     private String direction;
 
+    @JsonProperty("spendingCategory")
+    private String spendingCategory;
+
     @JsonProperty("amount")
     private Amount amount;
 

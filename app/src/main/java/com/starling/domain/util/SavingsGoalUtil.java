@@ -13,18 +13,36 @@ public final class SavingsGoalUtil {
 
     public static final String FEED_ITEM_OUT = "OUT";
 
+    public static final String PAYMENTS = "PAYMENTS";
+
     public static final String PRIMARY = "PRIMARY";
 
     private SavingsGoalUtil() {
     }
 
+    /**
+     * assumptions:
+     * - there are 48 different spending categories documented, for demo purposes just treating spending as
+     * - anything as where direction = OUT and category type = PAYMENT
+     *
+     * @param transactionFeedItemResponse
+     * @return total savings
+     */
     public static Integer calculateTotalRoundUpSavings(TransactionFeedItemResponse transactionFeedItemResponse) {
         return transactionFeedItemResponse
                 .getFeedItems()
                 .stream()
-                .filter(f -> FEED_ITEM_OUT.equals(f.getDirection()))
+                .filter(f -> FEED_ITEM_OUT.equals(f.getDirection()) && PAYMENTS.equals((f.getSpendingCategory())))
                 .map(f -> calculateSaving(f.getAmount().getMinorUnits()))
                 .reduce(0, Integer::sum);
+    }
+
+    /**
+     * @param amount
+     * @return difference of given amount and its value rounded up to the next 100
+     */
+    private static Integer calculateSaving(Integer amount) {
+        return (((amount / 100) * 100) + 100) - amount;
     }
 
     /**
@@ -37,14 +55,6 @@ public final class SavingsGoalUtil {
                 .stream()
                 .filter(a -> PRIMARY.equals(a.getAccountType()))
                 .findFirst();
-    }
-
-    /**
-     * @param amount
-     * @return difference of given amount and its value rounded up to the next 100
-     */
-    private static Integer calculateSaving(Integer amount) {
-        return (((amount / 100) * 100) + 100) - amount;
     }
 
     public static ZonedDateTime calculateStartOfWeek(int year, int week) {
