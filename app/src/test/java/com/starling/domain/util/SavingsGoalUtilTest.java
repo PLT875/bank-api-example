@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SavingsGoalUtilTest {
 
     @Test
-    public void retrievePrimaryAccount() {
+    void retrievePrimaryAccount() {
         AccountsResponse.Account acc0 = new AccountsResponse.Account("id0", "PRIMARY", "cat0", "GBP");
         AccountsResponse.Account acc1 = new AccountsResponse.Account("id1", "SECONDARY", "cat1", "GBP");
         AccountsResponse accountsResponse = new AccountsResponse(Arrays.asList(acc0, acc1));
@@ -30,7 +30,7 @@ public class SavingsGoalUtilTest {
     }
 
     @Test
-    public void calculateTotalRoundUpSavings() {
+    void calculateTotalRoundUpSavings() {
         FeedItem feedItem0 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(435)));
         FeedItem feedItem1 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(520)));
         FeedItem feedItem2 = new FeedItem(FEED_ITEM_OUT, new FeedItem.Amount("GB", Integer.valueOf(87)));
@@ -44,7 +44,7 @@ public class SavingsGoalUtilTest {
     }
 
     @Test
-    public void calculateTotalRoundUpSavingsWhenNoPayments() {
+    void calculateTotalRoundUpSavingsWhenNoPayments() {
         FeedItem feedItem0 = new FeedItem("IN", new FeedItem.Amount("GB", Integer.valueOf(50)));
         List<FeedItem> feedItems = Arrays.asList(feedItem0);
 
@@ -56,7 +56,7 @@ public class SavingsGoalUtilTest {
     }
 
     @Test
-    public void calculateStartAndEndOfWeek() {
+    void calculateStartAndEndOfWeek() {
         ZonedDateTime dt0 = SavingsGoalUtil.calculateStartOfWeek(2020, 53);
         assertEquals("2020-12-28T00:00Z", dt0.toString());
         assertEquals("2021-01-03T23:59:59.999999999Z", SavingsGoalUtil.calculateEndOfWeek(dt0));

@@ -18,13 +18,14 @@ public class RoundUpController {
         this.savingsGoalService = savingsGoalService;
     }
 
-    @PutMapping("/savings-goal/{savingsGoalUid}/account/{accountUid}/add-round-ups")
-    public ResponseEntity<?> addRoundUpsForWeekToSavingsGoal(
+    @PutMapping("/savings-goal/{savingsGoalUid}/add-round-ups/{year}/{weekNo}")
+    public ResponseEntity<?> addWeekRoundUpsToSavingsGoal(
             @PathVariable String savingsGoalUid,
-            @PathVariable String accountUid
-
-    ) {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            @PathVariable int year,
+            @PathVariable int weekNo
+    ) throws Exception {
+        savingsGoalService.addRoundUpToSavingsGoal(savingsGoalUid, year, weekNo);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
