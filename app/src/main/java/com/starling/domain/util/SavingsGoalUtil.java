@@ -3,11 +3,14 @@ package com.starling.domain.util;
 import com.starling.infrastructure.starlingapi.AccountsResponse;
 import com.starling.infrastructure.starlingapi.TransactionFeedItemResponse;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
+import java.time.temporal.ChronoField;
 import java.util.Optional;
+
+import static java.time.temporal.ChronoField.YEAR;
 
 public final class SavingsGoalUtil {
 
@@ -58,15 +61,16 @@ public final class SavingsGoalUtil {
     }
 
     public static ZonedDateTime calculateStartOfWeek(int year, int week) {
-        Calendar cal = Calendar.getInstance();
+        LocalDateTime startOfYearWeek = LocalDateTime.now()
+                .with(YEAR, year)
+                .with(ChronoField.ALIGNED_WEEK_OF_YEAR, week)
+                .with(DayOfWeek.MONDAY)
+                .with(ChronoField.HOUR_OF_DAY, 0)
+                .with(ChronoField.MINUTE_OF_HOUR, 0)
+                .with(ChronoField.SECOND_OF_DAY, 0)
+                .with(ChronoField.MILLI_OF_SECOND, 0);
 
-        // n.b. Sun is 1 in gregorian calendar
-        cal.setWeekDate(year, week, 2);
-
-        LocalDateTime start = LocalDateTime.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-                cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
-
-        return ZonedDateTime.of(start, ZoneOffset.UTC);
+        return ZonedDateTime.of(startOfYearWeek, ZoneOffset.UTC);
     }
 
     public static String calculateEndOfWeek(ZonedDateTime dateTime) {
