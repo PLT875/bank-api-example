@@ -31,7 +31,7 @@ Start up the application
 ```
 ./gradlew bootRun
 ```
-If running on windows terminal / command prompt please use ./gradlew.bat instead
+If running on windows terminal / command prompt please use the gradlew.bat instead
 
 **Example request**
 
@@ -56,7 +56,7 @@ curl --location --request PUT 'http://localhost:8080/savings-goal/fcf2b116-8d3a-
 **How to test**
 
 1. Use the auto-simulator to generate some transactions
-2. Call the end point for the current week
+2. Call the end point, passing in the current week
 3. View the logs
 4. Check savings goal balance - GET /api/v2/account/{accountUid}/savings-goals/{savingsGoalUid} 
 
