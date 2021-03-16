@@ -59,8 +59,8 @@ public class SavingsGoalService {
             SavingsGoalTopUpResponse response = starlingApiClient.addMoneyToSavingsGoal(
                     accountUid, savingsGoalUid, transferUid, request);
 
-            log.info("Adding to savings goal UID: {}. Success: {}. Transfer UID: {}", savingsGoalUid,
-                    response.isSuccess(), response.getTransferUid());
+            log.info("Adding to savings goal UID: {}. Transfer UID: {}. Success: {}", savingsGoalUid,
+                    response.getTransferUid(), response.isSuccess());
         } else {
             log.info("No savings for week {} of year {}", weekNo, year);
         }
@@ -75,6 +75,9 @@ public class SavingsGoalService {
         Map<String, String> timestampParameters = new HashMap<>();
         timestampParameters.put("minTransactionTimestamp", startOfWeek.toString());
         timestampParameters.put("maxTransactionTimestamp", endOfWeek);
+
+        log.info("Retrieving transaction feed for account UID: {} and category UID: {}", accountUid, categoryUid);
+        log.info("Retrieving transaction feed between {} and {}", startOfWeek.toString(), endOfWeek);
 
         return starlingApiClient.getFeedItemsBetweenTimestamps(accountUid, categoryUid, timestampParameters);
     }

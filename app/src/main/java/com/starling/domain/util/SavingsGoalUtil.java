@@ -9,6 +9,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Optional;
+import java.time.temporal.WeekFields;
 
 import static java.time.temporal.ChronoField.YEAR;
 
@@ -63,7 +64,7 @@ public final class SavingsGoalUtil {
     public static ZonedDateTime calculateStartOfWeek(int year, int week) {
         LocalDateTime startOfYearWeek = LocalDateTime.now()
                 .with(YEAR, year)
-                .with(ChronoField.ALIGNED_WEEK_OF_YEAR, week)
+                .with(WeekFields.ISO.weekOfWeekBasedYear(), week)
                 .with(DayOfWeek.MONDAY)
                 .with(ChronoField.HOUR_OF_DAY, 0)
                 .with(ChronoField.MINUTE_OF_HOUR, 0)
