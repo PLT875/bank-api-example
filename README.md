@@ -62,4 +62,4 @@ curl --location --request PUT 'http://localhost:8080/savings-goal/fcf2b116-8d3a-
 
 Notes:
 - currently no implementation to track previously submitted round-ups
-- treating spending categories as PAYMENTS and direction as OUT
+- treating spending categories as type PAYMENTS and direction OUT
