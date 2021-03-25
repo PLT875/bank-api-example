@@ -1,0 +1,64 @@
+{
+  "feedItems":[
+    {
+      "feedItemUid":"f3c54d38-05ae-4d2f-bffe-d68904ef5d0a",
+      "categoryUid":"29854949-15df-475e-8785-b490dbaec2b2",
+      "amount":{
+        "currency":"GBP",
+        "minorUnits":200
+      },
+      "sourceAmount":{
+        "currency":"GBP",
+        "minorUnits":200
+      },
+      "direction":"OUT",
+      "updatedAt":"2021-03-16T21:25:58.760Z",
+      "transactionTime":"2021-03-16T21:25:58.422Z",
+      "settlementTime":"2021-03-16T21:25:58.686Z",
+      "source":"FASTER_PAYMENTS_OUT",
+      "status":"SETTLED",
+      "counterPartyType":"PAYEE",
+      "counterPartyUid":"5baf1747-7d57-4b6d-8507-f9f3828a2d85",
+      "counterPartyName":"Mickey Mouse",
+      "counterPartySubEntityUid":"2fdecc8b-4b61-4401-a1ec-31715f1da4ea",
+      "counterPartySubEntityName":"UK account",
+      "counterPartySubEntityIdentifier":"204514",
+      "counterPartySubEntitySubIdentifier":"00000825",
+      "reference":"External Payment",
+      "country":"GB",
+      "spendingCategory":"PAYMENTS",
+      "hasAttachment":false,
+      "hasReceipt":false
+    },
+    {
+      "feedItemUid":"f3c57540-aec4-426d-912b-94eafdd404a8",
+      "categoryUid":"29854949-15df-475e-8785-b490dbaec2b2",
+      "amount":{
+        "currency":"GBP",
+        "minorUnits":1800
+      },
+      "sourceAmount":{
+        "currency":"GBP",
+        "minorUnits":1800
+      },
+      "direction":"OUT",
+      "updatedAt":"2021-03-16T21:25:58.693Z",
+      "transactionTime":"2021-03-16T21:25:58.343Z",
+      "settlementTime":"2021-03-16T21:25:58.647Z",
+      "source":"FASTER_PAYMENTS_OUT",
+      "status":"SETTLED",
+      "counterPartyType":"PAYEE",
+      "counterPartyUid":"d026532f-547d-4f7b-9f41-7d7c7d1d2c2f",
+      "counterPartyName":"Mickey Mouse",
+      "counterPartySubEntityUid":"1ea0f2f4-8ec7-4f95-9931-dc05af8f29f8",
+      "counterPartySubEntityName":"UK account",
+      "counterPartySubEntityIdentifier":"204514",
+      "counterPartySubEntitySubIdentifier":"00000825",
+      "reference":"External Payment",
+      "country":"GB",
+      "spendingCategory":"PAYMENTS",
+      "hasAttachment":false,
+      "hasReceipt":false
+    }
+  ]
+}

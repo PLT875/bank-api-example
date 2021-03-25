@@ -1,0 +1,24 @@
+{
+  "request": {
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer abc123"
+      },
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    },
+    "method": "PUT",
+    "urlPattern": "\/api\/v2\/account\/[a-z0-9-]+\/savings-goals\/[a-z0-9-]+\/add-money\/[a-z0-9-]+",
+    "bodyPatterns" : [{
+      "equalToJson" : "{ \"amount\": { \"currency\": \"GBP\", \"minorUnits\": 200 } }"
+    }]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "addToSavingsGoalResponseBody.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

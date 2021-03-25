@@ -1,0 +1,18 @@
+{
+  "request": {
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer abc123"
+      }
+    },
+    "method": "GET",
+    "url": "/api/v2/accounts"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "accountsResponseBody.json"
+  }
+}
