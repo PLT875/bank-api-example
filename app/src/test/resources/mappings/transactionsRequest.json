@@ -1,0 +1,18 @@
+{
+  "request": {
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer abc123"
+      }
+    },
+    "method": "GET",
+    "urlPattern": "\/api\/v2\/feed\/account\/[a-z0-9-]+\/category\/[a-z0-9-]+\/transactions-between\\?maxTransactionTimestamp=.+?(&)minTransactionTimestamp=.+"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "transactionsResponseBody.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

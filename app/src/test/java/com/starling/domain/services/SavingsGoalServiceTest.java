@@ -31,13 +31,13 @@ public class SavingsGoalServiceTest {
     private StarlingApiClient mockStarlingApiClient;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         MockitoAnnotations.openMocks(this);
         savingsGoalService = new SavingsGoalService(mockStarlingApiClient);
     }
 
     @Test
-    public void shouldAddRoundUpsToSavingsGoalForGivenWeek() {
+    void shouldAddRoundUpsToSavingsGoalForGivenWeek() {
         AccountsResponse.Account acc0 = new AccountsResponse.Account("id0", "PRIMARY", "cat0", "GBP");
         AccountsResponse accountsResponseMock = new AccountsResponse(Arrays.asList(acc0));
 
@@ -59,7 +59,7 @@ public class SavingsGoalServiceTest {
     }
 
     @Test
-    public void shouldNotAddRoundUpsToSavingsGoalIfNoneForGivenWeek() {
+    void shouldNotAddRoundUpsToSavingsGoalIfNoneForGivenWeek() {
         AccountsResponse.Account acc0 = new AccountsResponse.Account("id0", "PRIMARY", "cat0", "GBP");
         AccountsResponse accountsResponseMock = new AccountsResponse(Arrays.asList(acc0));
 
