@@ -1,11 +1,8 @@
-# starling-tech-test
-
-**Developer** 
-* Peter Tran
+# bank-api-example
 
 **Overview**
 
-Submission for the round-up feature challenge. Solution developed with Java & Spring Boot. 
+Round-up feature challenge. Solution developed with Java & Spring Boot. 
 
 The provided endpoint takes a given week and savings goal UID. It triggers round up savings for the week and then 
 transfers to the given savings goal.
